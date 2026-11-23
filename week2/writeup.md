@@ -1,83 +1,74 @@
 # Week 2 Write-up
-Tip: To preview this markdown file
-- On Mac, press `Command (⌘) + Shift + V`
-- On Windows/Linux, press `Ctrl + Shift + V`
 
-## INSTRUCTIONS
+## Part I: The Server
 
-Fill out all of the `TODO`s in this file.
+**API chosen**, and why:
+> TODO
 
-## SUBMISSION DETAILS
-
-Name: **TODO** \
-SUNet ID: **TODO** \
-Citations: **TODO**
-
-This assignment took me about **TODO** hours to do. 
-
-
-## YOUR RESPONSES
-For each exercise, please include what prompts you used to generate the answer, in addition to the location of the generated response. Make sure to clearly add comments in your code documenting which parts are generated.
-
-### Exercise 1: Scaffold a New Feature
-Prompt: 
+**How to run it** (one command):
 ```
 TODO
-``` 
-
-Generated Code Snippets:
-```
-TODO: List all modified code files with the relevant line numbers.
 ```
 
-### Exercise 2: Add Unit Tests
-Prompt: 
+| Tool | What it does | Read/Write | Composes with |
+|---|---|---|---|
+| TODO | TODO | TODO | TODO |
+| TODO | TODO | TODO | TODO |
+| TODO | TODO | TODO | TODO |
+
+
+## Part II: Agent Ergonomics
+
+For each, point at the code (`file:line`) and say what it buys.
+
+| Decision | Where | Why |
+|---|---|---|
+| Schema-level constraint | TODO | TODO |
+| Output shaping (fields kept vs. dropped) | TODO | TODO |
+| Structured errors (retry vs. don't-retry) | TODO | TODO |
+| Docstring that chains tools together | TODO | TODO |
+| Brake on the write tool | TODO | TODO |
+
+**One thing you changed after watching the agent misuse a tool:**
+> TODO
+
+
+## Part III: OAuth
+
+**Flow**: how a token is obtained, cached, and refreshed:
+> TODO
+
+**Scopes requested**, and why each is necessary:
+> TODO
+
+**Secrets**: what's in env, what's gitignored:
+> TODO
+
+**Token dies mid-session**: what the agent sees:
+> TODO
+
+
+## Part IV: Integration
+
+**Registration config** (`.mcp.json.example`) and the client you used:
+> TODO
+
+**End-to-end transcript**: the prompt, the tools that fired with their arguments, the result:
 ```
 TODO
-``` 
-
-Generated Code Snippets:
-```
-TODO: List all modified code files with the relevant line numbers.
 ```
 
-### Exercise 3: Refactor Existing Code for Clarity
-Prompt: 
+**A failure, handled**: what you provoked, what the agent saw, what it did next:
 ```
 TODO
-``` 
-
-Generated/Modified Code Snippets:
-```
-TODO: List all modified code files with the relevant line numbers. (We anticipate there may be multiple scattered changes here – just produce as comprehensive of a list as you can.)
 ```
 
-
-### Exercise 4: Use Agentic Mode to Automate a Small Task
-Prompt: 
-```
-TODO
-``` 
-
-Generated Code Snippets:
-```
-TODO: List all modified code files with the relevant line numbers.
-```
+**Protocol-level test**: what it covers and how to run it:
+> TODO
 
 
-### Exercise 5: Generate a README from the Codebase
-Prompt: 
-```
-TODO
-``` 
-
-Generated Code Snippets:
-```
-TODO: List all modified code files with the relevant line numbers.
-```
-
-
-## SUBMISSION INSTRUCTIONS
-1. Hit a `Command (⌘) + F` (or `Ctrl + F`) to find any remaining `TODO`s in this file. If no results are found, congratulations – you've completed all required fields. 
-2. Make sure you have all changes pushed to your remote repository for grading.
-3. Submit via Gradescope. 
+## Submission
+1. `Command (⌘) + F` for `TODO`. No results means you're done.
+2. Confirm no tokens, client secrets, cached token file, or real `.mcp.json` are committed.
+3. Push all changes to your remote repository and submit via Gradescope.
+4. Clean up (optional): remove the server from your agent config, delete your cached token, and revoke the OAuth app's access.

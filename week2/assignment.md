@@ -1,78 +1,75 @@
-# Week 2 – Action Item Extractor
+# Week 2: Build an MCP Server for a Third-Party API
 
-This week, we will be expanding upon a minimal FastAPI + SQLite app that converts free‑form notes into enumerated action items.
+## Assignment Overview
 
-***We recommend reading this entire document before getting started.***
+Build an MCP server that exposes a third-party API to your coding agent. The API work is the easy part. What is graded is **agent ergonomics**: whether a model can pick the right tool, call it correctly, and recover when it doesn't. Plus a working **OAuth** flow, because most APIs worth wrapping don't take a static key.
 
-Tip: To preview this markdown file
-- On Mac, press `Command (⌘) + Shift + V`
-- On Windows/Linux, press `Ctrl + Shift + V`
+### Learning Goals
 
+- **Design** tool interfaces for a consumer that only ever sees your schemas and descriptions.
+- **Implement** OAuth token acquisition, caching, and refresh inside a long-running server.
+- **Observe** how your design choices change what the agent actually does.
 
-## Getting Started
+## Materials
 
-### Cursor Set Up
-Follow these instructions to set up Cursor and open your project:
-1. Redeem your free year of Cursor Pro: https://cursor.com/students
-2. Download Cursor: https://cursor.com/download
-3. To enable the Cursor command line tool, open Cursor and press `Command (⌘) + Shift+ P` for Mac users (or `Ctrl + Shift + P` for non-Mac users) to open the Command Palette. Type: `Shell Command: Install 'cursor' command`. Select it and hit Enter.
-4. Open a new terminal window, navigate to your project root, and run: `cursor .`
+- **[FastMCP](https://github.com/jlowin/fastmcp)**: what you'll build with.
+- **[MCP specification](https://modelcontextprotocol.io/)**: tool annotations, transports, error semantics.
+- **[Reference MCP servers](https://github.com/modelcontextprotocol/servers)**: read one before writing yours.
 
-### Current Application
-Here's how you can start running the current starter application: 
-1. Activate your conda environment.
-```
-conda activate cs146s 
-```
-2. From the project root, run the server:
-```
-poetry run uvicorn week2.app.main:app --reload
-```
-3. Open a web browser and navigate to http://127.0.0.1:8000/.
-4. Familiarize yourself with the current state of the application. Make sure you can successfully input notes and produce the extracted action item checklist. 
+## Part I: Build the Server (25 pts)
 
-## Exercises
-For each exercise, use Cursor to help you implement the specified improvements to the current action item extractor application.
+Pick an API that uses **OAuth 2.0**: GitHub, Google (Gmail/Calendar/Drive), Notion, Linear, Slack, Spotify, and Strava all qualify. Pick something you actually use; you will be a better judge of what the tools should do.
 
-As you work through the assignment, use `writeup.md` to document your progress. Be sure to include the prompts you use, as well as any changes made by you or Cursor. We will be grading based on the contents of the write-up. Please also include comments throughout your code to document your changes. 
+Requirements:
 
-### TODO 1: Scaffold a New Feature
+- **At least 3 tools**, and they must **compose**: the output of one feeds another (e.g. `search_x` returns IDs that `get_x(id)` accepts).
+- **At least one write tool** that mutates real state.
+- Code lives in `week2/`, runs over stdio, and starts from a single documented command.
 
-Analyze the existing `extract_action_items()` function in `week2/app/services/extract.py`, which currently extracts action items using predefined heuristics.
+## Part II: Agent Ergonomics (30 pts)
 
-Your task is to implement an **LLM-powered** alternative, `extract_action_items_llm()`, that utilizes Ollama to perform action item extraction via a large language model.
+This is the assignment. Every choice below is about the fact that the agent sees your schemas and docstrings and *nothing else*.
 
-Some  tips:
-- To produce structured outputs (i.e. JSON array of strings), refer to this documentation: https://ollama.com/blog/structured-outputs 
-- To browse available Ollama models, refer to this documentation: https://ollama.com/library. Note that larger models will be more resource-intensive, so start small. To pull and run a model: `ollama run {MODEL_NAME}`
+- **Constraints in the schema, not the prose.** `sort: Literal["stars", "forks"]` beats `sort: str` plus a docstring sentence. If the schema and the docstring ever disagree, the agent gets validation failures it cannot explain.
+- **Shape your output.** Do not pass raw API JSON through. Pick the fields an agent needs. Raw payloads are token-heavy and couple your contract to someone else's API.
+- **Errors are data, not tracebacks.** Return something structured and actionable, and include enough detail for the agent to distinguish *don't retry* (bad ID) from *retry* (rate limit, network blip). A traceback ends the agent's turn; `{"error": "rate limited, retry after 42s"}` doesn't.
+- **Docstrings are the contract.** Say where an ID comes from ("the numeric ID from `list_templates`") so tools chain. Use `FastMCP(instructions=...)` for workflow guidance that spans tools.
+- **Write tools need a brake.** Use tool annotations (`readOnlyHint` on readers), and give the irreversible tool either a `dry_run` parameter or a preview-then-commit split.
 
-### TODO 2: Add Unit Tests 
+## Part III: OAuth (25 pts)
 
-Write unit tests for `extract_action_items_llm()` covering multiple inputs (e.g., bullet lists, keyword-prefixed lines, empty input) in `week2/tests/test_extract.py`.
+A real OAuth flow, not a pasted bearer token.
 
-### TODO 3: Refactor Existing Code for Clarity
+- Full authorization-code exchange, with **cached** tokens and **silent refresh** on expiry.
+- **Minimal scopes.** Ask for read-only if you only read, and justify each scope in the writeup.
+- **No secrets in the repo.** Read from env from the first commit. Commit `.mcp.json.example`; gitignore the real one.
+- **Handle the token dying mid-session.** A long-running server must not try to open a browser during a tool call. Return an actionable error instead.
 
-Perform a refactor of the code in the backend, focusing in particular on well-defined API contracts/schemas, database layer cleanup, app lifecycle/configuration, error handling. 
+## Part IV: Integrate and Demonstrate (20 pts)
 
-### TODO 4: Use Agentic Mode to Automate Small Tasks
-
-1. Integrate the LLM-powered extraction as a new endpoint. Update the frontend to include an "Extract LLM" button that, when clicked, triggers the extraction process via the new endpoint.
-
-2. Expose one final endpoint to retrieve all notes. Update the frontend to include a "List Notes" button that, when clicked, fetches and displays them.
-
-### TODO 5: Generate a README from the Codebase
-
-***Learning Goal:***
-*Students learn how AI can introspect a codebase and produce documentation automatically, showcasing Cursor’s ability to parse code context and translate it into human‑readable form.*
-
-Use Cursor to analyze the current codebase and generate a well-structured `README.md` file. The README should include, at a minimum:
-- A brief overview of the project
-- How to set up and run the project
-- API endpoints and functionality
-- Instructions for running the test suite
+- Register the server with Claude Code or Cursor and commit the config (`.mcp.json.example`).
+- **Show one end-to-end transcript** where the agent chains at least two of your tools to answer a real prompt: the prompt, which tools fired with what arguments, and the result.
+- **Show one failure** and how your error design handled it. Provoke it if you have to (bad ID, revoked token).
+- At least one test that exercises the server **through the MCP protocol**, not just by calling your Python functions.
 
 ## Deliverables
-Fill out `week2/writeup.md` according to the instructions provided. Make sure all your changes are documented in your codebase. 
 
-## Evaluation rubric (100 pts total)
-- 20 points per part 1-5 (10 for the generated code and 10 for each prompt).
+In `week2/`: your server code, `.mcp.json.example`, tests, and a completed `writeup.md`.
+
+## Evaluation Rubric (100 pts total)
+
+| Part | Points | What earns full credit |
+|---|---|---|
+| I. Server | 25 | 3+ composing tools, one write tool, runs from a documented command |
+| II. Agent ergonomics | 30 | Schema-level constraints, shaped output, structured errors, chaining docstrings, a brake on the write tool |
+| III. OAuth | 25 | Working code exchange with caching and refresh; minimal justified scopes; no secrets committed; sane mid-session expiry path |
+| IV. Integration | 20 | Committed config, a real chained transcript, a demonstrated failure path, one protocol-level test |
+
+Deductions for committed secrets, and for tools whose docstrings contradict their schemas.
+
+## SUBMISSION INSTRUCTIONS
+
+1. Make sure you have all changes pushed to your remote repository for grading.
+2. **Make sure you've added `mihail911`, `isaackann`, and `vdaita` as collaborators on your assignment repository.**
+3. Submit via Gradescope.
+4. **Optional: Clean up when you're done**: Remove the server from your agent config (`claude mcp remove <name>`, or delete the local `.mcp.json` entry), delete your cached token file, and revoke the OAuth app's access from the provider's account settings.

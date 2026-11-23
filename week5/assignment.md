@@ -1,118 +1,65 @@
-# Week 5 — Agentic Development with Warp
+# Week 5: Agent-Readiness Report
 
-Use the app in `week5/` as your playground. This week mirrors the prior assignment but emphasizes the Warp agentic development environment and multi‑agent workflows.
+## Assignment Overview
 
-## Learn about Warp
-- Warp Agentic Development Environment: [warp.dev](https://www.warp.dev/)
-- [Warp University](https://www.warp.dev/university?slug=university)
+Run Factory's agent-readiness report on three open-source repos, record what it found, then explain the pattern. Generating a report is one command per repo. The work is in **reading three of them side by side** and saying something defensible about where repos fall short.
 
+### Learning Goals
 
-## Explore the Starter Application
-Minimal full‑stack starter application.
-- FastAPI backend with SQLite (SQLAlchemy)
-- Static frontend (no Node toolchain needed)
-- Minimal tests (pytest)
-- Pre-commit (black + ruff)
-- Tasks to practice agent-driven workflows
+- **Assess** unfamiliar repos against a standard readiness framework.
+- **Compare** results across repos to separate the general from the specific.
+- **Generalize** from three data points to a claim you can defend.
 
-Use this application as your playground to experiment with the Warp automations you build.
+## Materials
 
-### Structure
+- **[Agent Readiness, Factory](https://factory.ai/news/agent-readiness)**: the framework, its eight pillars (Style & Validation, Build System, Testing, Documentation, Dev Environment, Code Quality, Observability, Security & Governance), and its five maturity levels.
+- **[Droid](https://factory.ai/)**: Factory's CLI, which is how you generate the report.
 
-```
-backend/                # FastAPI app
-frontend/               # Static UI served by FastAPI
-data/                   # SQLite DB + seed
-docs/                   # TASKS for agent-driven workflows
-```
+## Repositories
 
-### Quickstart
+Pick **three** from the week 4 list, or your own. Choose repos that differ in language, size, and age, or your analysis in Part II will have nothing to work with.
 
-1) Activate your conda environment.
+## Setup
 
-```bash
-conda activate cs146s
-```
+**Prerequisite: Droid CLI.** See the [Droid quickstart guide](https://docs.factory.ai/cli/getting-started/quickstart) for the install command.
 
-2) (Optional) Install pre-commit hooks
+## Part I: Run the Reports (40 pts)
 
-```bash
-pre-commit install
-```
+Clone each repo, then run `/readiness-report` in Droid from the repo root. It scores 60+ criteria across the eight pillars automatically and returns a maturity level, a per-criterion pass/fail breakdown, and remediation suggestions.
 
-3) Run the app (from `week5/` directory)
+Record for each repo:
 
-```bash
-make run
-```
+- Maturity level, and which criteria are blocking the next one.
+- Per-pillar scores.
+- The failed criteria, grouped by pillar.
+- The report's own top remediation suggestions.
 
-4) Open `http://localhost:8000` for the frontend and `http://localhost:8000/docs` for the API docs.
+Include the raw output too, but the point is the summary: three reports in a comparable format is what makes Part II possible.
 
-5) Play around with the starter application to get a feel for its current features and functionality.
+## Part II: Where Repos Fall Short (60 pts)
 
+The analysis. Answer from your data:
 
-### Testing
-Run the tests (from `week5/` directory)
-```bash
-make test
-```
+- **Which pillars failed most**, and were the failures consistent across all three repos or specific to one?
+- **What explains the pattern?** Test the obvious suspects (age, language, size, single-maintainer vs. corporate-backed) and say what your three repos can and cannot support.
+- **The cheapest high-leverage fix.** For each repo, the one change that would most improve an agent's odds, and why that one over the report's own top suggestion.
+- **Where the framework falls short.** A pillar that mattered less than its weight suggests, a criterion that doesn't fit the kind of repo you scored, or something it misses that clearly affects agents.
 
-### Formatting/Linting
-```bash
-make format
-make lint
-```
-
-## Part I: Build Your Automation (Choose 2 or more) 
-Select tasks from `week5/docs/TASKS.md` to implement. Your implementation must leverage Warp in both of the following ways (more details below):
-
-- A) Use Warp Drive features — such as saved prompts, rules, or MCP servers.
-- (B) Incorporate multi-agent workflows within Warp.
-
-Keep your changes focused on backend, frontend, logic, or tests inside `week5/`.
-For each selected task, note its difficulty level.
-
-
-### A) Warp Drive saved prompts, rules, MCP servers (REQUIRED: at least one)
-Create one or more shareable Warp Drive prompts, rules, or MCP server integrations tailored to this repo. Examples:
-- Test runner with coverage and flaky‑test re‑run
-- Docs sync: generate/update `docs/API.md` from `/openapi.json`, list route deltas
-- Refactor harness: rename a module, update imports, run lint/tests
-- Release helper: bump versions, run checks, prepare a changelog snippet
-- Integrate the Git MCP server to have Warp interact with Git autonomously (creating branches, commits, PR notes, etc)
-
->*Tips: keep workflows focused, pass arguments, make them idempotent, and prefer headless/non‑interactive steps where possible.*
-
-### B) Multi‑agent workflows in Warp (REQUIRED: at least one)
-Run a multi‑agent session where separate agents in different Warp tabs handle independent tasks concurrently. 
-- Perform multiple self-contained tasks from `TASKS.md` in separate Warp tabs using concurrent agents. Challenge: how many agents can you have working simultaneously?
-
->*Tips: [git worktree](https://git-scm.com/docs/git-worktree) may be helpful here to keep agents from clobbering over each other.*
-
-
-## Part II: Put Your Automations to Work 
-Now that you’ve built 2+ automations, let's put them to use! In the `writeup.md` under section *"How you used the automation (what pain point it resolves or accelerates)"*, describe how you leveraged each automation to improve some workflow.
-
-## Constraints and scope
-Work strictly in `week5/` (backend, frontend, logic, tests). Avoid changing other weeks unless the automation explicitly requires it and you document why.
-
+Three repos is a small sample. Scope your claims to what it supports.
 
 ## Deliverables
-1) Two or more Warp automations, which may include:
-   - Warp Drive workflows/rules (share links and/or exported definitions) and any helper scripts
-   - Any supplemental prompts/playbooks used to coordinate multiple agents
 
-2) A write‑up `writeup.md` under `week5/` that includes:
-   - Design of each automation, including goals, inputs/outputs, steps
-   - Before vs. after (i.e. manual workflow vs. automated workflow)
-   - Autonomy levels used for each completed task (which code permissions, why, and how you supervised)
-   - (if applicable) Multi‑agent notes: roles, coordination strategy, and concurrency wins/risks/failures
-   - How you used the automation (what pain point it resolves or accelerates)
+In `week5/`: a completed `writeup.md` with your recorded results and analysis, including the raw report output for each repo.
 
+## Evaluation Rubric (100 pts total)
 
+| Part | Points | What earns full credit |
+|---|---|---|
+| I. Reports | 40 | Three repos scored, results recorded completely and in a comparable format |
+| II. Analysis | 60 | Pattern identified and explained from the data; per-repo fix justified; framework critiqued; claims scoped to the sample |
 
 ## SUBMISSION INSTRUCTIONS
-1. Make sure you have all changes pushed to your remote repository for grading.
-2. **Make sure you've added both brentju and febielin as collaborators on your assignment repository.**
-2. Submit via Gradescope. 
 
+1. Make sure you have all changes pushed to your remote repository for grading.
+2. **Make sure you've added `mihail911`, `isaackann`, and `vdaita` as collaborators on your assignment repository.**
+3. Submit via Gradescope.

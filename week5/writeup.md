@@ -1,72 +1,72 @@
 # Week 5 Write-up
-Tip: To preview this markdown file
-- On Mac, press `Command (⌘) + Shift + V`
-- On Windows/Linux, press `Ctrl + Shift + V`
 
-## INSTRUCTIONS
+**Repos chosen**, and how they differ:
 
-Fill out all of the `TODO`s in this file.
-
-## SUBMISSION DETAILS
-
-Name: **TODO** \
-SUNet ID: **TODO** \
-Citations: **TODO**
-
-This assignment took me about **TODO** hours to do. 
+| Repo | Language | Size | Age / activity |
+|---|---|---|---|
+| TODO | TODO | TODO | TODO |
+| TODO | TODO | TODO | TODO |
+| TODO | TODO | TODO | TODO |
 
 
-## YOUR RESPONSES
-### Automation A: Warp Drive saved prompts, rules, MCP servers
+## Part I: Report Results
 
-a. Design of each automation, including goals, inputs/outputs, steps
+### Summary
+
+| Repo | Maturity level | Blocking the next level | Pillar scores |
+|---|---|---|---|
+| TODO | TODO | TODO | TODO |
+| TODO | TODO | TODO | TODO |
+| TODO | TODO | TODO | TODO |
+
+### Failed criteria by pillar
+
+| Pillar | Repo 1 | Repo 2 | Repo 3 |
+|---|---|---|---|
+| Style & Validation | TODO | TODO | TODO |
+| Build System | TODO | TODO | TODO |
+| Testing | TODO | TODO | TODO |
+| Documentation | TODO | TODO | TODO |
+| Dev Environment | TODO | TODO | TODO |
+| Code Quality | TODO | TODO | TODO |
+| Observability | TODO | TODO | TODO |
+| Security & Governance | TODO | TODO | TODO |
+
+### The report's top remediation suggestions
+
+| Repo | Suggestions |
+|---|---|
+| TODO | TODO |
+| TODO | TODO |
+| TODO | TODO |
+
+### Raw output
+
+```
+TODO
+```
+
+
+## Part II: Analysis
+
+**Which pillars failed most**, and were failures consistent across all three or specific to one?
 > TODO
 
-b. Before vs. after (i.e. manual workflow vs. automated workflow)
+**What explains the pattern?** Which suspects your data supports, and which it cannot distinguish:
 > TODO
 
-c. Autonomy levels used for each completed task (what code permissions, why, and how you supervised)
-> TODO
+**Cheapest high-leverage fix**, per repo:
 
-d. (if applicable) Multi‑agent notes: roles, coordination strategy, and concurrency wins/risks/failures
-> TODO
+| Repo | The one change | Why this one, over the report's top suggestion |
+|---|---|---|
+| TODO | TODO | TODO |
+| TODO | TODO | TODO |
+| TODO | TODO | TODO |
 
-e. How you used the automation (what pain point it resolves or accelerates)
-> TODO
-
-
-
-### Automation B: Multi‑agent workflows in Warp 
-
-a. Design of each automation, including goals, inputs/outputs, steps
-> TODO
-
-b. Before vs. after (i.e. manual workflow vs. automated workflow)
-> TODO
-
-c. Autonomy levels used for each completed task (what code permissions, why, and how you supervised)
-> TODO
-
-d. (if applicable) Multi‑agent notes: roles, coordination strategy, and concurrency wins/risks/failures
-> TODO
-
-e. How you used the automation (what pain point it resolves or accelerates)
+**Where the framework falls short:**
 > TODO
 
 
-### (Optional) Automation C: Any Additional Automations
-a. Design of each automation, including goals, inputs/outputs, steps
-> TODO
-
-b. Before vs. after (i.e. manual workflow vs. automated workflow)
-> TODO
-
-c. Autonomy levels used for each completed task (what code permissions, why, and how you supervised)
-> TODO
-
-d. (if applicable) Multi‑agent notes: roles, coordination strategy, and concurrency wins/risks/failures
-> TODO
-
-e. How you used the automation (what pain point it resolves or accelerates)
-> TODO
-
+## Submission
+1. `Command (⌘) + F` for `TODO`. No results means you're done.
+2. Push all changes to your remote repository and submit via Gradescope.

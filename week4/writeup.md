@@ -1,70 +1,47 @@
 # Week 4 Write-up
-Tip: To preview this markdown file
-- On Mac, press `Command (⌘) + Shift + V`
-- On Windows/Linux, press `Ctrl + Shift + V`
 
-## INSTRUCTIONS
-
-Fill out all of the `TODO`s in this file.
-
-## SUBMISSION DETAILS
-
-Name: **TODO** \
-SUNet ID: **TODO** \
-Citations: **TODO**
-
-This assignment took me about **TODO** hours to do. 
-
-
-## YOUR RESPONSES
-### Automation #1
-a. Design inspiration (e.g. cite the best-practices and/or sub-agents docs)
+**Repo chosen** and link to your fork:
 > TODO
 
-b. Design of each automation, including goals, inputs/outputs, steps
-> TODO
-
-c. How to run it (exact commands), expected outputs, and rollback/safety notes
-> TODO
-
-d. Before vs. after (i.e. manual workflow vs. automated workflow)
-> TODO
-
-e. How you used the automation to enhance the starter application
+**File you wrote** (`AGENTS.md` or `CLAUDE.md`):
 > TODO
 
 
-### Automation #2
-a. Design inspiration (e.g. cite the best-practices and/or sub-agents docs)
+## Part I: Exploration
+
+| | Finding |
+|---|---|
+| Build / run | TODO |
+| Test | TODO |
+| Lint / format | TODO |
+| Key directories and entry points | TODO |
+| Unstated conventions | TODO |
+| Off-limits (generated, vendored) | TODO |
+
+**How you figured it out**: what you asked the agent, what you had to read yourself:
 > TODO
 
-b. Design of each automation, including goals, inputs/outputs, steps
+
+## Part II: The File
+
+**Anything you deliberately left out**, and why:
 > TODO
 
-c. How to run it (exact commands), expected outputs, and rollback/safety notes
-> TODO
-
-d. Before vs. after (i.e. manual workflow vs. automated workflow)
-> TODO
-
-e. How you used the automation to enhance the starter application
+**The hardest call** on what to include:
 > TODO
 
 
-### *(Optional) Automation #3*
-*If you choose to build additional automations, feel free to detail them here!*
+## Part III: Trying It Out
 
-a. Design inspiration (e.g. cite the best-practices and/or sub-agents docs)
+| # | Task | Did the agent use your commands and conventions? |
+|---|---|---|
+| 1 | TODO | TODO |
+| 2 | TODO | TODO |
+
+**One thing you'd change** about the file after watching it get used:
 > TODO
 
-b. Design of each automation, including goals, inputs/outputs, steps
-> TODO
 
-c. How to run it (exact commands), expected outputs, and rollback/safety notes
-> TODO
-
-d. Before vs. after (i.e. manual workflow vs. automated workflow)
-> TODO
-
-e. How you used the automation to enhance the starter application
-> TODO
+## Submission
+1. `Command (⌘) + F` for `TODO`. No results means you're done.
+2. Push all changes to your remote repository and submit via Gradescope.
